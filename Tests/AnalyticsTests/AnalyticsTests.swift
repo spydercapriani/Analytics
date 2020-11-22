@@ -3,10 +3,21 @@ import XCTest
 
 final class AnalyticsTests: XCTestCase {
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(Analytics().text, "Hello, World!")
+        Log.message("Hello World!", type: .info)
+        let event = AnalyticsEvent(
+            domain: "Default",
+            eventName: "Test Event",
+            attributes: [
+                "Hello": "World",
+                "Testing": 123,
+                "isIt": true
+            ],
+            logType: .warning
+        )
+        Log.report(event)
+        Log.setGlobal("Attribute", withValue: "Hello World!")
+        Log.eventStarted("Test Event")
+        Log.eventFinished(event)
     }
 
     static var allTests = [
