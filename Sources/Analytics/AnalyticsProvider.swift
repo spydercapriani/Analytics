@@ -15,11 +15,11 @@ public var Log = AnalyticsProvider(
 
 public final class AnalyticsProvider {
 
-    public var loggers: [Logger]
+    public var loggers: [LogProvider]
 
     private var startTimeByEvent = [AnalyticsEventName: TimeInterval]()
 
-    init(_ loggers: [Logger]) {
+    init(_ loggers: [LogProvider]) {
         self.loggers = loggers
     }
 }
@@ -37,6 +37,11 @@ extension AnalyticsProvider {
 
     public func message(_ value: String, type: AnalyticsLogType) {
         loggers.forEach { $0.message(value, type: type) }
+    }
+
+    public func error(_ error: Error?) {
+        guard let error = error else { return }
+        loggers.forEach { $0.error(error) }
     }
 
     public func eventStarted(_ eventName: AnalyticsEventName) {

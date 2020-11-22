@@ -14,3 +14,6 @@ public enum AnalyticsLogType: String {
     case warning
     case error
 }
+
+// MARK: - Equatable
+extension AnalyticsLogType: Equatable { }

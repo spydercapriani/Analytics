@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Analytics",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v12)
     ],
     products: [
         .library(
@@ -17,7 +17,6 @@ let package = Package(
         ),
     ],
     dependencies: [
-
     ],
     targets: [
         .target(

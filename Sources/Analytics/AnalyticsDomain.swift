@@ -11,7 +11,7 @@ public struct AnalyticsDomain: RawRepresentable {
 
     public var rawValue: String
 
-    public init?(rawValue: String) {
+    public init(rawValue: String) {
         self.rawValue = rawValue
     }
 }
@@ -29,3 +29,6 @@ extension AnalyticsDomain: CustomStringConvertible {
 
     public var description: String { rawValue }
 }
+
+// MARK: - Equatable
+extension AnalyticsDomain: Equatable { }

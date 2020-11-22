@@ -12,7 +12,7 @@ public struct OSLogger {
 
 }
 
-extension OSLogger: Logger {
+extension OSLogger: LogProvider {
 
     public func report(_ event: AnalyticsEvent) {
         var value = "\(event.domain) Event at \(Date())\n"
@@ -25,7 +25,30 @@ extension OSLogger: Logger {
     }
 
     public func setGlobal(_ attribute: AnalyticsAttribute, withValue value: Any?) {
-        message("Global Attribute set: \(attribute) = \(String(describing: value))", type: .info)
+        if let value = value {
+            message("Global Attribute set: \(attribute) = \(String(describing: value))", type: .info)
+        } else {
+            message("Global Attribute removed: \(attribute)", type: .info)
+        }
+    }
+
+    public func error(_ error: Error) {
+        let nsError = error as NSError
+
+        let attributes: [AnalyticsAttribute: String] = [
+            "description": nsError.localizedDescription,
+            "reason": nsError.localizedFailureReason,
+            "suggestion": nsError.localizedRecoverySuggestion
+        ]
+        .compactMapValues { $0 }
+
+        let event = AnalyticsEvent(
+            domain: AnalyticsDomain(rawValue: nsError.domain),
+            name: "Error",
+            attributes: attributes,
+            logType: .error
+        )
+        report(event)
     }
 
     public func message(_ value: String, type: AnalyticsLogType) {
@@ -34,7 +57,7 @@ extension OSLogger: Logger {
 
     public func eventFinished(_ event: AnalyticsEvent, duration: TimeInterval) {
         var updatedEvent = event
-        updatedEvent.attributes?["duration"] = duration
+        updatedEvent.name = AnalyticsEventName(rawValue: "\(event.name)(\(duration))")
         report(updatedEvent)
     }
 }

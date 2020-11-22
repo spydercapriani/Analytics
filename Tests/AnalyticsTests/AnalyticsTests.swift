@@ -2,25 +2,32 @@ import XCTest
 @testable import Analytics
 
 final class AnalyticsTests: XCTestCase {
+
     func testExample() {
         Log.message("Hello World!", type: .info)
         let event = AnalyticsEvent(
             domain: "Default",
-            eventName: "Test Event",
+            name: "Test Event",
             attributes: [
                 "Hello": "World",
                 "Testing": 123,
                 "isIt": true
             ],
-            logType: .warning
+            type: .warning
         )
         Log.report(event)
         Log.setGlobal("Attribute", withValue: "Hello World!")
+        Log.setGlobal("Attribute", withValue: nil)
         Log.eventStarted("Test Event")
         Log.eventFinished(event)
+        Log.error(TestError.testing)
     }
 
     static var allTests = [
         ("testExample", testExample),
     ]
+}
+
+enum TestError: Error {
+    case testing
 }
