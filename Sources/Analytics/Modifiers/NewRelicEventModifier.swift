@@ -1,5 +1,5 @@
 //
-//  NewRelicEventMapper.swift
+//  NewRelicEventModifier.swift
 //  
 //
 //  Created by Danny Gilbert on 11/22/20.
@@ -7,28 +7,19 @@
 
 import Foundation
 
-struct NewRelicEventMapper {
+public struct NewRelicEventModifier: LogEventModifier {
 
-}
-
-// MARK: - Analytics Event Mapper
-extension NewRelicEventMapper: AnalyticsEventMapper {
-
-    func domain(for event: AnalyticsEvent) -> AnalyticsDomain {
-        event.logType == .error ? "AppError" : "AppLog"
-    }
-
-    func eventName(for event: AnalyticsEvent) -> AnalyticsEventName {
-        event.name
-    }
-
-    func attributes(for event: AnalyticsEvent) -> [AnalyticsAttribute : Any]? {
-        event.attributes?.compactMapValues { self.cleanAttribute($0) }
+    public func modify(_ event: LogEvent, level: LogLevel) -> LogEvent {
+        LogEvent(
+            domain: event.domain,
+            name: event.name,
+            attributes: event.attributes?.compactMapValues(cleanAttribute(_:))
+        )
     }
 }
 
 // MARK: - Clean Attributes
-extension NewRelicEventMapper {
+extension NewRelicEventModifier {
 
     private func cleanAttribute(_ value: Any) -> Any? {
         switch value {
