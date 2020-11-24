@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol LogWriter {
+public protocol LogWriter: class {
 
     func report(_ event: LogEvent, level: LogLevel)
     func set(_ attribute: GlobalAttribute, withValue value: Any?)

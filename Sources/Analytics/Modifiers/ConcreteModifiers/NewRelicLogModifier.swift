@@ -1,5 +1,5 @@
 //
-//  NewRelicEventModifier.swift
+//  NewRelicLogModifier.swift
 //  
 //
 //  Created by Danny Gilbert on 11/22/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct NewRelicEventModifier: LogEventModifier {
+public struct NewRelicLogModifier: LogModifier {
 
     public func modify(_ event: LogEvent, level: LogLevel) -> LogEvent {
         LogEvent(
@@ -19,7 +19,7 @@ public struct NewRelicEventModifier: LogEventModifier {
 }
 
 // MARK: - Clean Attributes
-extension NewRelicEventModifier {
+extension NewRelicLogModifier {
 
     private func cleanAttribute(_ value: Any) -> Any? {
         switch value {
