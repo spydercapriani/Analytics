@@ -11,5 +11,5 @@ public protocol LogWriter {
 
     func report(_ event: LogEvent, level: LogLevel)
     func set(_ attribute: GlobalAttribute, withValue value: Any?)
-    func recordError(_ error: Error)
+    func error(_ error: Error)
 }

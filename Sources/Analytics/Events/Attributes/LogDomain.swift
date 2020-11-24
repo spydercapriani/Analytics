@@ -25,9 +25,7 @@ public struct LogDomain: OptionSet {
 // MARK: - Domains
 extension LogDomain {
 
-    public static let `default` = LogDomain(
-        rawValue: 0 << 0
-    )
+    public static let `default` = LogDomain(rawValue: 0 << 0)
 }
 
 extension LogDomain: Equatable { }
