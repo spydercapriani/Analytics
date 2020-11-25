@@ -7,18 +7,28 @@
 
 import Foundation
 
+var Log = Logger(
+    writers: [
+        ConsoleWriter()
+    ]
+)
+
+public typealias LogEventFilter = (LogEvent) -> Bool
 open class Logger {
 
     public let logLevels: [LogLevel]
+    public let logFilters: [LogEventFilter]
     public let writers: [LogWriter]
     public let executionMethod: ExecutionMethod
 
     public init(
         logLevels: [LogLevel] = LogLevel.allCases,
+        logFilters: [LogEventFilter] = [],
         writers: [LogWriter],
         executionMethod: ExecutionMethod = .synchronous(lock: NSRecursiveLock())
     ) {
         self.logLevels = logLevels
+        self.logFilters = logFilters
         self.writers = writers
         self.executionMethod = executionMethod
     }
@@ -52,7 +62,7 @@ extension Logger {
 extension Logger {
 
     private func isAllowed(_ event: LogEvent, level: LogLevel) -> Bool {
-        logLevels.contains(level)
+        logFilters.reduce(logLevels.contains(level)) { $0 && $1(event) }
     }
 
     private func execute(_ handler: @escaping () -> ()) {

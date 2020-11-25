@@ -4,10 +4,9 @@ import XCTest
 final class AnalyticsTests: XCTestCase {
 
     func testExample() {
-        let writer = ConsoleWriter()
-        writer.set("Default", withValue: "Hello World")
-        writer.set("Default", withValue: nil)
-        writer.error(TestError.testing)
+        Log.set("Default", withValue: "Hello World")
+        Log.set("Default", withValue: nil)
+        Log.error(TestError.testing)
         let event = LogEvent(
             domain: "Default",
             name: "Test Event",
@@ -17,7 +16,7 @@ final class AnalyticsTests: XCTestCase {
                 "isIt": true
             ]
         )
-        writer.report(event, level: .warning)
+        Log.report(event, level: .warning)
     }
 
     static var allTests = [
