@@ -35,6 +35,7 @@ Analytics is a powerful, yet lightweight logging library written in Swift.
 - Have a feature request? 
 - Found a bug? 
 - Want to contribute?
+
 Slack `dev-mobile` channel or Submit a PR.
 
 ## Installation
