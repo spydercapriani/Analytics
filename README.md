@@ -216,3 +216,5 @@ The `Logger` will execute each `LogWriter` in the order it was passed in.
 ## Creators
 
 - [Danny Gilbert](https://github.com/spydercapriani)
+
+Special shoutout to the creators of [Willow](https://github.com/Nike-Inc/Willow) for much of the inspiration behind this package.
