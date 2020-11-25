@@ -15,7 +15,11 @@ public final class ConsoleWriter {
     var loggers: [LogDomain: OSLog] = [:]
 
     public init(
-        modifiers: [LogModifier] = [EmojiLogModifier(), TimestampLogModifier()]
+        modifiers: [LogModifier] = [
+            EmojiLogModifier(),
+            TimestampLogModifier(),
+            LogLevelReporter()
+        ]
     ) {
         self.modifiers = modifiers
     }
