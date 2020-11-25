@@ -16,10 +16,14 @@ public struct LogName {
     }
 }
 
-extension LogName: ExpressibleByStringLiteral {
+extension LogName: ExpressibleByStringLiteral, ExpressibleByStringInterpolation {
 
     public init(stringLiteral value: String) {
         self.description = value
+    }
+
+    public init(stringInterpolation: DefaultStringInterpolation) {
+        self.description = stringInterpolation.description
     }
 }
 

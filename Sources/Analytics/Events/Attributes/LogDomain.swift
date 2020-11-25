@@ -7,33 +7,33 @@
 
 import Foundation
 
-public struct LogDomain: OptionSet {
+public struct LogDomain {
 
-    public let rawValue: UInt
-    static var descriptions: [UInt: String] = [:]
+    public let description: String
 
-    public init(rawValue: UInt) {
-        self.rawValue = rawValue
-    }
-
-    public init(rawValue: UInt, description: String) {
-        self.rawValue = rawValue
-        Self.descriptions[rawValue] = description
+    public init(_ attribute: String) {
+        self.description = attribute
     }
 }
 
-// MARK: - Domains
-extension LogDomain {
+extension LogDomain: ExpressibleByStringLiteral, ExpressibleByStringInterpolation {
 
-    public static let `default` = LogDomain(rawValue: 0 << 0)
+    public init(stringLiteral value: String) {
+        self.description = value
+    }
+
+    public init(stringInterpolation: DefaultStringInterpolation) {
+        self.description = stringInterpolation.description
+    }
 }
 
+extension LogDomain: CustomStringConvertible { }
 extension LogDomain: Equatable { }
 extension LogDomain: Hashable { }
 
-// MARK: - Description
-extension LogDomain: CustomStringConvertible {
-    public var description: String {
-        Self.descriptions[rawValue] ?? "Unknown"
-    }
+// MARK: - Default Domain
+extension LogDomain {
+
+    public static var `default`: LogDomain = "Default"
+    public static var globalAttribute: LogDomain = "Global Attribute"
 }

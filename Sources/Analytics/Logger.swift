@@ -33,8 +33,7 @@ extension Logger {
         }
     }
 
-    open func report(_ event: @escaping () -> LogEvent, level: LogLevel) {
-        let event = event()
+    open func report(_ event: LogEvent, level: LogLevel) {
         guard isAllowed(event, level: level) else { return }
         self.execute {
             self.writers.forEach { $0.report(event, level: level) }

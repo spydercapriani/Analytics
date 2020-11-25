@@ -16,19 +16,19 @@ public struct LogAttribute {
     }
 }
 
-// MARK: - String Literal
-extension LogAttribute: ExpressibleByStringLiteral {
+extension LogAttribute: ExpressibleByStringLiteral, ExpressibleByStringInterpolation {
 
     public init(stringLiteral value: String) {
         self.description = value
     }
 }
 
-// MARK: - CustomStringConvertible
 extension LogAttribute: CustomStringConvertible { }
-
-// MARK: - Equatable
 extension LogAttribute: Equatable { }
-
-// MARK: - Hashable
 extension LogAttribute: Hashable { }
+
+// MARK: - Defaults
+extension LogAttribute {
+
+    public static var emoji: LogAttribute = "emoji"
+}

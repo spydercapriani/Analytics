@@ -4,29 +4,23 @@ import XCTest
 final class AnalyticsTests: XCTestCase {
 
     func testExample() {
-//        Log.message("Hello World!", type: .info)
-//        let event = AnalyticsEvent(
-//            domain: "Default",
-//            name: "Test Event",
-//            attributes: [
-//                "Hello": "World",
-//                "Testing": 123,
-//                "isIt": true
-//            ]
-//        )
-//        Log.report(event, type: .warning)
-//        Log.setGlobal("Attribute", withValue: "Hello World!")
-//        Log.setGlobal("Attribute", withValue: nil)
-//        Log.eventStarted("Test Event")
-//        Log.eventFinished(event)
-//        Log.error(TestError.testing)
+        let writer = ConsoleWriter()
+        writer.set("Default", withValue: "Hello World")
+        writer.set("Default", withValue: nil)
+        writer.error(TestError.testing)
+        let event = LogEvent(
+            domain: "Default",
+            name: "Test Event",
+            attributes: [
+                "Hello": "World",
+                "Testing": 123,
+                "isIt": true
+            ]
+        )
+        writer.report(event, level: .warning)
     }
 
     static var allTests = [
         ("testExample", testExample),
     ]
-}
-
-enum TestError: Error {
-    case testing
 }
