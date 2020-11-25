@@ -48,7 +48,7 @@ Once you have your Swift package set up, adding Analytics as a dependency is as 
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/spydercapriani/Analytics.git", majorVersion: 1.0.0)
+    .package(url: "https://github.com/spydercapriani/Analytics.git", majorVersion: "1.0.0")
 ]
 ```
 
@@ -216,3 +216,5 @@ The `Logger` will execute each `LogWriter` in the order it was passed in.
 ## Creators
 
 - [Danny Gilbert](https://github.com/spydercapriani)
+
+Special shoutout to the creators of [Willow](https://github.com/Nike-Inc/Willow) for much of the inspiration behind this package.
