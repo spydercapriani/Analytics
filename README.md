@@ -48,7 +48,7 @@ Once you have your Swift package set up, adding Analytics as a dependency is as 
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/spydercapriani/Analytics.git", majorVersion: 1.0.0)
+    .package(url: "https://github.com/spydercapriani/Analytics.git", majorVersion: "1.0.0")
 ]
 ```
 
