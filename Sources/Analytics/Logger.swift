@@ -7,7 +7,7 @@
 
 import Foundation
 
-var Log = Logger(
+public var Log = Logger(
     writers: [
         ConsoleWriter()
     ]
