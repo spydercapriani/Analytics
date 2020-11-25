@@ -29,6 +29,5 @@ extension LogAttribute: Hashable { }
 
 // MARK: - Defaults
 extension LogAttribute {
-
-    public static var emoji: LogAttribute = "emoji"
+    public static var duration: LogAttribute = "duration"
 }

@@ -21,6 +21,8 @@ open class Logger {
     public let writers: [LogWriter]
     public let executionMethod: ExecutionMethod
 
+    private var startTimeByEvent = [LogName: TimeInterval]()
+
     public init(
         logLevels: [LogLevel] = LogLevel.allCases,
         logFilters: [LogEventFilter] = [],
@@ -55,6 +57,18 @@ extension Logger {
         self.execute {
             self.writers.forEach { $0.error(error) }
         }
+    }
+
+    open func logEventStarted(_ name: LogName) {
+        startTimeByEvent[name] = CFAbsoluteTimeGetCurrent()
+    }
+
+    open func logEventFinished(_ event: LogEvent, level: LogLevel) {
+        guard let startTime = startTimeByEvent.removeValue(forKey: event.name) else { return }
+        let duration = CFAbsoluteTimeGetCurrent() - startTime
+        var updatedEvent = event
+        updatedEvent.attributes?[.duration] = NSNumber(value: duration)
+        report(updatedEvent, level: level)
     }
 }
 

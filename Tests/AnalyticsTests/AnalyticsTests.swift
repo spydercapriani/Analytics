@@ -17,6 +17,8 @@ final class AnalyticsTests: XCTestCase {
             ]
         )
         Log.report(event, level: .warning)
+        Log.logEventStarted(event.name)
+        Log.logEventFinished(event, level: .verbose)
     }
 
     static var allTests = [
